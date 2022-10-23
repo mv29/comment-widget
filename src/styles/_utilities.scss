@@ -1,0 +1,38 @@
+$spacings: 5,
+10,
+15,
+20;
+$margin-prefix: 'm';
+$padding-prefix: 'p';
+$sides: ("t": "top", "r": "right", "b": "bottom", "l": "left");
+
+@each $spacing in $spacings {
+    $spacing-in-px: $spacing * 0.1rem;
+
+    @each $size-prefix,
+    $size in $sides {
+        .#{$margin-prefix}-#{$size-prefix}-#{$spacing} {
+            margin-#{$size}: $spacing-in-px;
+        }
+
+        .#{$padding-prefix}-#{$size-prefix}-#{$spacing} {
+            padding-#{$size}: $spacing-in-px;
+        }
+    }
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.row {
+    display: flex;
+}
+
+.justify-c {
+    justify-content: center;
+}
+
+.align-start {
+    align-items: flex-start;
+}

@@ -1,0 +1,9 @@
+#root {
+    // common
+    @import 'styles/variables';
+    @import 'styles/utilities';
+
+    // components
+    @import 'styles/button';
+    @import 'styles/input';
+}

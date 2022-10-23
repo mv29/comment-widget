@@ -1,0 +1,14 @@
+.input {
+    color: $border-color;
+    padding: 0.8rem 1rem;
+    border-radius: 0.4rem;
+    border: 0.08rem $border-color solid;
+
+    &--large {
+        width: 20rem;
+    }
+
+    &:focus-visible {
+        outline: $primary-color auto 0.1rem;
+    }
+}

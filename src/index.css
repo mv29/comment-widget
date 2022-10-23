@@ -1,13 +1,126 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+#root .m-t-5 {
+  margin-top: 0.5rem; }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+#root .p-t-5 {
+  padding-top: 0.5rem; }
+
+#root .m-r-5 {
+  margin-right: 0.5rem; }
+
+#root .p-r-5 {
+  padding-right: 0.5rem; }
+
+#root .m-b-5 {
+  margin-bottom: 0.5rem; }
+
+#root .p-b-5 {
+  padding-bottom: 0.5rem; }
+
+#root .m-l-5 {
+  margin-left: 0.5rem; }
+
+#root .p-l-5 {
+  padding-left: 0.5rem; }
+
+#root .m-t-10 {
+  margin-top: 1rem; }
+
+#root .p-t-10 {
+  padding-top: 1rem; }
+
+#root .m-r-10 {
+  margin-right: 1rem; }
+
+#root .p-r-10 {
+  padding-right: 1rem; }
+
+#root .m-b-10 {
+  margin-bottom: 1rem; }
+
+#root .p-b-10 {
+  padding-bottom: 1rem; }
+
+#root .m-l-10 {
+  margin-left: 1rem; }
+
+#root .p-l-10 {
+  padding-left: 1rem; }
+
+#root .m-t-15 {
+  margin-top: 1.5rem; }
+
+#root .p-t-15 {
+  padding-top: 1.5rem; }
+
+#root .m-r-15 {
+  margin-right: 1.5rem; }
+
+#root .p-r-15 {
+  padding-right: 1.5rem; }
+
+#root .m-b-15 {
+  margin-bottom: 1.5rem; }
+
+#root .p-b-15 {
+  padding-bottom: 1.5rem; }
+
+#root .m-l-15 {
+  margin-left: 1.5rem; }
+
+#root .p-l-15 {
+  padding-left: 1.5rem; }
+
+#root .m-t-20 {
+  margin-top: 2rem; }
+
+#root .p-t-20 {
+  padding-top: 2rem; }
+
+#root .m-r-20 {
+  margin-right: 2rem; }
+
+#root .p-r-20 {
+  padding-right: 2rem; }
+
+#root .m-b-20 {
+  margin-bottom: 2rem; }
+
+#root .p-b-20 {
+  padding-bottom: 2rem; }
+
+#root .m-l-20 {
+  margin-left: 2rem; }
+
+#root .p-l-20 {
+  padding-left: 2rem; }
+
+#root .cursor {
+  cursor: pointer; }
+
+#root .row {
+  display: flex; }
+
+#root .justify-c {
+  justify-content: center; }
+
+#root .align-start {
+  align-items: flex-start; }
+
+#root .btn {
+  color: white;
+  background-color: #278ff7;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  border: 0.1rem white solid; }
+  #root .btn:hover {
+    background-color: #57aafd; }
+
+#root .input {
+  color: #c8c8c8;
+  padding: 0.8rem 1rem;
+  border-radius: 0.4rem;
+  border: 0.08rem #c8c8c8 solid; }
+  #root .input--large {
+    width: 20rem; }
+  #root .input:focus-visible {
+    outline: #278ff7 auto 0.1rem; }
