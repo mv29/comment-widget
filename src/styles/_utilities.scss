@@ -29,8 +29,21 @@ $sides: ("t": "top", "r": "right", "b": "bottom", "l": "left");
     display: flex;
 }
 
+.column {
+    display: flex;
+    flex-direction: column;
+}
+  
 .justify-c {
     justify-content: center;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.align-c {
+    align-items: center;
 }
 
 .align-start {

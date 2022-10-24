@@ -1,11 +1,31 @@
+@mixin btn-type($color, $bg-color) {
+    color: $color;
+    border-color: $color;
+    background-color: $bg-color;
+}
+
 .btn {
-    color: $white;
-    background-color: $primary-color;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 0.3rem;
     border: 0.1rem $white solid;
 
-    &:hover {
-        background-color: $primary-light-color;
+    &--small {
+        padding: 0.3rem 0.8rem;
+    }
+
+    &--primary {
+        @include btn-type($white, $primary-color);
+
+        &:hover {
+            background-color: $primary-light-color;
+        }
+    }
+
+    &--danger {
+        @include btn-type($red, transparent);
+    }
+
+    &--secondary {
+        @include btn-type($primary-color, transparent);
     }
 }

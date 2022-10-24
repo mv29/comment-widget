@@ -1,3 +1,3 @@
-export { default as Input } from './Input';
-export { default as Button } from './Button';
-export { default as Comment } from './Comment';
+export { default as Input } from './general/Input';
+export { default as Button } from './general/Button';
+export { default as Comment } from './general/Comment';

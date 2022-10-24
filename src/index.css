@@ -1,3 +1,6 @@
+#root .comment-container {
+  padding: 0 24rem; }
+
 #root .m-t-5 {
   margin-top: 0.5rem; }
 
@@ -100,27 +103,48 @@
 #root .row {
   display: flex; }
 
+#root .column {
+  display: flex;
+  flex-direction: column; }
+
 #root .justify-c {
   justify-content: center; }
+
+#root .justify-start {
+  justify-content: flex-start; }
+
+#root .align-c {
+  align-items: center; }
 
 #root .align-start {
   align-items: flex-start; }
 
 #root .btn {
-  color: white;
-  background-color: #278ff7;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 0.3rem;
   border: 0.1rem white solid; }
-  #root .btn:hover {
-    background-color: #57aafd; }
+  #root .btn--small {
+    padding: 0.3rem 0.8rem; }
+  #root .btn--primary {
+    color: white;
+    border-color: white;
+    background-color: #278ff7; }
+    #root .btn--primary:hover {
+      background-color: #57aafd; }
+  #root .btn--danger {
+    color: red;
+    border-color: red;
+    background-color: transparent; }
+  #root .btn--secondary {
+    color: #278ff7;
+    border-color: #278ff7;
+    background-color: transparent; }
 
 #root .input {
-  color: #c8c8c8;
   padding: 0.8rem 1rem;
   border-radius: 0.4rem;
   border: 0.08rem #c8c8c8 solid; }
   #root .input--large {
-    width: 20rem; }
+    width: 30rem; }
   #root .input:focus-visible {
     outline: #278ff7 auto 0.1rem; }
