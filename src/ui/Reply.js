@@ -1,17 +1,33 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ADD_SUB_COMMENT } from '../store/comments';
+import { ADD_SUB_COMMENT, DELETE_COMMENT } from '../store/comments';
 import { Comment, Button } from '../components/index';
 
 const Reply = ({ comment }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [showReply, setShowReply] = useState(false);
 
   const handleReplyClick = () => setShowReply((prev) => !prev);
 
   const handleReply = (reply) => {
-    dispatch({ type: ADD_SUB_COMMENT, payload: {text: reply, parentId: comment.id }})
+    dispatch({
+      type: ADD_SUB_COMMENT,
+      payload: { text: reply, parentId: comment.id },
+    });
+  };
+
+  const handleDelete = () => {
+    const result = window.confirm(
+      'Deleting a Comment will also delete all sub Comments. Do you want to delete?'
+    );
+
+    if (result) {
+      dispatch({
+        type: DELETE_COMMENT,
+        payload: comment.id,
+      });
+    }
   };
 
   return (
@@ -23,14 +39,13 @@ const Reply = ({ comment }) => {
         <span className='m-r-10 reply'>{comment.text}</span>
         <Button
           text='delete'
+          onClick={handleDelete}
           className='btn--small btn--danger m-r-5'
-          key='delete'
         />
         <Button
           text='reply'
-          className='btn--small btn--secondary'
-          key='reply'
           onClick={handleReplyClick}
+          className='btn--small btn--secondary'
         />
       </div>
       {showReply && (
