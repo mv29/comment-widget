@@ -34,7 +34,7 @@ export const getFormatedCommentsList = (comments, comment, level) => {
 
   // recursivelly add subComments in the order present
   subComments.forEach((subCommentId) => {
-    formattedComment = [...formattedComment, ...getFormatedCommentsList(comments, subCommentId, level + 1)];
+    formattedComment = [...formattedComment, ...getFormatedCommentsList(comments, comments[subCommentId], level + 1)];
   });
   
   // return the formattedList after each recursive iteration

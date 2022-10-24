@@ -12,7 +12,7 @@ const Input = ({ comment, setComment, className, ...props }) => {
       required
       value={comment}
       onChange={handleChange}
-      className={classNames('input input--large', className)}
+      className={classNames('input', className)}
       {...props}
     />
   );

@@ -1,30 +1,33 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
-import { ADD_COMMENT } from '../../store/comments';
 import Input from './Input';
 import Button from './Button';
 
-const Comment = ({ parentEntity }) => {
-  const dispatch = useDispatch();
+const Comment = ({ 
+  handleSubmit,
+  btnName = 'Add Comment',
+  btnClassName = 'btn--primary',
+  InputClassName = 'input--large input--main'
+}) => {
   const [comment, setComment] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleCommentSubmit = (event) => {
     event.preventDefault();
-    dispatch({ type: ADD_COMMENT, payload: {text: comment, parentEntity }})
+    handleSubmit(comment);
     setComment('');
   };
 
   return (
     <div className='row justify-c align-start'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleCommentSubmit}>
         <Input
           comment={comment}
           setComment={setComment}
-          className='m-r-5'
+          className={classNames('m-r-5', InputClassName)}
           placeholder='Enter a Comment'
         />
-        <Button text='Add Comment' className="btn--primary" />
+        <Button text={btnName} className={btnClassName} />
       </form>
     </div>
   );

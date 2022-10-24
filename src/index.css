@@ -124,7 +124,8 @@
   border-radius: 0.3rem;
   border: 0.1rem white solid; }
   #root .btn--small {
-    padding: 0.3rem 0.8rem; }
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem; }
   #root .btn--primary {
     color: white;
     border-color: white;
@@ -139,12 +140,26 @@
     color: #278ff7;
     border-color: #278ff7;
     background-color: transparent; }
+  #root .btn--normal {
+    color: black;
+    border-color: black;
+    background-color: lightgray; }
 
 #root .input {
-  padding: 0.8rem 1rem;
+  width: auto;
+  padding: 0.4rem 0.8rem;
   border-radius: 0.4rem;
   border: 0.08rem #c8c8c8 solid; }
   #root .input--large {
     width: 30rem; }
+  #root .input--small {
+    width: 15rem; }
+  #root .input--main {
+    padding: 0.8rem 1rem; }
   #root .input:focus-visible {
     outline: #278ff7 auto 0.1rem; }
+
+#root .reply {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.4rem;
+  background-color: whitesmoke; }

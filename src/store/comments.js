@@ -6,7 +6,6 @@ export const ADD_COMMENT = `${BASE_NAME}/ADD_COMMENT`;
 export const EDIT_COMMENT = `${BASE_NAME}/EDIT_COMMENT`;
 export const DELETE_COMMENT = `${BASE_NAME}/DELETE_COMMENT`;
 export const ADD_SUB_COMMENT = `${BASE_NAME}/ADD_SUB_COMMENT`;
-export const REPLY_TO_COMMENT = `${BASE_NAME}/REPLY_TO_COMMENT`;
 
 /*
 Comment Schemma
@@ -57,14 +56,14 @@ const commentsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ADD_COMMENT: {
       const uuid = generateUUID();
-      const {text, parentEntity} = payload;
+      const {text, parentId} = payload;
 
       return {
         ...state,
         [uuid]: {
           id: uuid,
           text: text,
-          parentId: parentEntity,
+          parentId: parentId,
           subComments: [],
           createAt: new Date(),
           userId: null,
@@ -85,14 +84,24 @@ const commentsReducer = (state = initialState, { type, payload }) => {
       };
     }
     case ADD_SUB_COMMENT: {
-      const { id: commentId, value } = payload;
-      const comment = state[commentId];
+      const uuid = generateUUID();
+      const {text, parentId} = payload;
+      const parentComment = state[parentId];
 
       return {
         ...state,
-        [commentId]: {
-          ...comment,
-          subComments: [...comment.subComments, value],
+        [parentId]: {
+          ...parentComment,
+          subComments: [...parentComment.subComments, uuid],
+        },
+        [uuid]: {
+          id: uuid,
+          text: text,
+          parentId: parentId,
+          subComments: [],
+          createAt: new Date(),
+          userId: null,
+          updatedAt: null,
         },
       };
     }
