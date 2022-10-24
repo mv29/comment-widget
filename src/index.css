@@ -124,7 +124,7 @@
   border-radius: 0.3rem;
   border: 0.1rem white solid; }
   #root .btn--small {
-    padding: 0.3rem 0.8rem;
+    padding: 0.2rem 0.6rem;
     font-size: 0.8rem; }
   #root .btn--primary {
     color: white;
@@ -139,6 +139,10 @@
   #root .btn--secondary {
     color: #278ff7;
     border-color: #278ff7;
+    background-color: transparent; }
+  #root .btn--edit {
+    color: #00ffcc;
+    border-color: #00ffcc;
     background-color: transparent; }
   #root .btn--normal {
     color: black;

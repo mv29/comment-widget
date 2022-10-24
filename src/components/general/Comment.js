@@ -6,6 +6,7 @@ import Button from './Button';
 
 const Comment = ({ 
   handleSubmit,
+  placeholder = 'Enter a Comment',
   btnName = 'Add Comment',
   btnClassName = 'btn--primary',
   InputClassName = 'input--large input--main'
@@ -25,7 +26,7 @@ const Comment = ({
           comment={comment}
           setComment={setComment}
           className={classNames('m-r-5', InputClassName)}
-          placeholder='Enter a Comment'
+          placeholder={placeholder}
         />
         <Button text={btnName} className={btnClassName} />
       </form>

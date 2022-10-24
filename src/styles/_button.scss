@@ -30,6 +30,10 @@
         @include btn-type($primary-color, transparent);
     }
 
+    &--edit{
+        @include btn-type($edit-color, transparent);
+    }
+
     &--normal {
         @include btn-type($black, $lightgray);
     }

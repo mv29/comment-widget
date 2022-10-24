@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ADD_SUB_COMMENT, DELETE_COMMENT } from '../store/comments';
+import { ADD_SUB_COMMENT, DELETE_COMMENT, EDIT_COMMENT } from '../store/comments';
 import { Comment, Button } from '../components/index';
 
 const Reply = ({ comment }) => {
   const dispatch = useDispatch();
-  const [showReply, setShowReply] = useState(false);
+  const [showComment, setShowComment] = useState(0);
 
-  const handleReplyClick = () => setShowReply((prev) => !prev);
+  const handleClick = (value) => {
+    setShowComment((prev) => prev === value ? 0 : value);
+  }
 
   const handleReply = (reply) => {
     dispatch({
@@ -30,6 +32,13 @@ const Reply = ({ comment }) => {
     }
   };
 
+  const handleEdit = (reply) => {
+    dispatch({
+        type: EDIT_COMMENT,
+        payload: { value: reply, id: comment.id },
+      });
+  }
+
   return (
     <div
       className='column m-b-10'
@@ -44,18 +53,23 @@ const Reply = ({ comment }) => {
         />
         <Button
           text='reply'
-          onClick={handleReplyClick}
-          className='btn--small btn--secondary'
+          onClick={() => handleClick(1)}
+          className='btn--small btn--secondary m-r-5'
+        />
+        <Button
+          text='edit'
+          onClick={() => handleClick(2)}
+          className='btn--small btn--edit'
         />
       </div>
-      {showReply && (
+      {showComment !== 0 && (
         <div className='row m-t-5'>
           <Comment
-            parentId={comment.id}
             InputClassName='input--small'
-            btnName='reply'
             btnClassName='btn--normal btn--small'
-            handleSubmit={handleReply}
+            placeholder={showComment === 1 ? 'reply to comment' : 'edit comment'}
+            btnName={showComment === 1 ? 'reply' : 'edit'}
+            handleSubmit={showComment === 1 ? handleReply : handleEdit}
           />
         </div>
       )}
