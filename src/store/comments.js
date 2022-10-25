@@ -167,7 +167,7 @@ export const fetchComments = () => {
         // doc.data() is never undefined for query doc snapshots
         comments[doc.id] = {...doc.data(), id: doc.id};
       });
-      console.log('mv comments', comments);
+
       dispatch({
         type: FETCH_COMMENTS_DONE,
         payload: comments || {},
@@ -259,7 +259,6 @@ const commentsReducer = (state = initialState, { type, payload }) => {
       };
     }
     case ADD_SUB_COMMENT: {
-      console.log('mv payload', payload);
       const { text, parentId, id } = payload;
       const parentComment = state.data[parentId];
 

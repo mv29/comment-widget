@@ -19,7 +19,6 @@ const fetchComments = async () => {
 }
 
 const addComment = async (payload) => {
-  console.log('mv payload', payload);
   return await addDoc(collection(Database, COMMENT_COLLECTION), { ...payload, createdAt: Timestamp.now() });
 };
 

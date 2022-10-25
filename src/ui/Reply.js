@@ -35,21 +35,21 @@ const Reply = ({ comment }) => {
   };
 
   const commentTimeStamp = useMemo(() => {
-    return '';
-    // const commentDateTime = comment.createdAt;
-    // const currentDateTime = new Date();
-    // const hoursDifference = currentDateTime.getHours() - commentDateTime.getHours();
-    // const minutesDifference = currentDateTime.getMinutes() - commentDateTime.getMinutes();
-    // if (hoursDifference > 24) {
-    //   return commentDateTime.toDateString();
-    // } else {
-    //   if (hoursDifference === 0) {
-    //     return `${minutesDifference || 1} min ago`;
-    //   }
-    //   return `${hoursDifference} hr`;
-    // }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ comment.createdAt]);
+    const createdAtSec = comment.createdAt.seconds;
+    const commentDateTime = new Date(createdAtSec * 1000);
+    const currentDateTime = new Date();
+    const hoursDifference = currentDateTime.getHours() - commentDateTime.getHours();
+    const minutesDifference = currentDateTime.getMinutes() - commentDateTime.getMinutes();
+    if (hoursDifference > 24) {
+      return commentDateTime.toDateString();
+    } else {
+      if (hoursDifference === 0 || isNaN(hoursDifference)) {
+        return `${minutesDifference || 1} min ago`;
+      }
+      return `${hoursDifference} hr ago`;
+    }
+
+  }, [ comment]);
 
   return (
     <div
