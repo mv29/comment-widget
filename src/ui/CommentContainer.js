@@ -17,7 +17,7 @@ const CommentContainer = () => {
   };
 
   return (
-    <div className='column comment-container'>
+    <div className='column comment__container'>
       <Comment handleSubmit={handleComment} />
       <CommentsList parentId={PARENT_ID} />
     </div>

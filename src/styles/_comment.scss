@@ -1,0 +1,12 @@
+.comment {
+    &__container {
+        padding: 0 24rem;
+    }
+
+    &__list {
+        overflow: auto;
+        height: 75vh;
+        border: 0.1rem solid $black;
+        border-radius: 1rem;
+    }
+}

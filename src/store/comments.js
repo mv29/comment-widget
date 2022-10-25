@@ -250,11 +250,11 @@ const commentsReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         data: {
-          ...state.data,
           [commentId]: {
             ...comment,
             text: value,
-          }
+          },
+          ...state.data,
         }
       };
     }

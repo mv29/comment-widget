@@ -56,7 +56,7 @@ const Reply = ({ comment }) => {
       className='column m-b-15'
       style={{ marginLeft: `${comment.level * 1}rem` }}
     >
-      <div className='row align-c relative'>
+      <div className='row align-c relative reply__container'>
         <div className='m-r-10 reply'>
           <div className='row reply__timestamp absolute'>{commentTimeStamp}</div>
           <div className='m-r-10 reply'>{comment.text}</div>

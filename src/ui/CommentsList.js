@@ -32,7 +32,7 @@ const CommentsList = ({ parentId }) => {
   if (!formattedCommentList) return null;
 
   return (
-    <div className='column justify-start m-t-10 p-l-5 p-r-5'>
+    <div className='comment__list column justify-start m-t-10 p-l-10 p-r-10 p-t-10'>
       {formattedCommentList.map((comment) => (
         <Reply comment={comment} key={comment.id} />
       ))}

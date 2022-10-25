@@ -1,7 +1,12 @@
 #root {
-    .comment-container {
-        padding: 0 24rem;
-    }
+    // common
+    @import 'styles/variables';
+    @import 'styles/utilities';
+
+    // components
+    @import 'styles/button';
+    @import 'styles/input';
+    @import 'styles/comment';
 
     .loader {
         position: fixed;
@@ -11,14 +16,6 @@
         top: 1px;
         opacity: 1;
         pointer-events: all;
-        background-color: rgb(64 88 114 / 56%);
+        // background-color: rgb(64, 88, 114, 56%);
     }
-
-    // common
-    @import 'styles/variables';
-    @import 'styles/utilities';
-
-    // components
-    @import 'styles/button';
-    @import 'styles/input';
 }
