@@ -1,4 +1,5 @@
 import { useMemo, useEffect } from 'react';
+import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getCommentsList } from '../selectors/comments';
@@ -32,7 +33,12 @@ const CommentsList = ({ parentId }) => {
   if (!formattedCommentList) return null;
 
   return (
-    <div className='comment__list column justify-start m-t-10 p-l-10 p-r-10 p-t-10'>
+    <div 
+      className={classNames(
+        'comment__list column justify-start m-t-10 p-l-10 p-r-10 p-t-10',
+        { 'comment__list--border': formattedCommentList.length !==0 }
+      )}
+    >
       {formattedCommentList.map((comment) => (
         <Reply comment={comment} key={comment.id} />
       ))}

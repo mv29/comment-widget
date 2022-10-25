@@ -187,9 +187,10 @@
 
 #root .comment__list {
   overflow: auto;
-  height: 75vh;
-  border: 0.1rem solid black;
+  max-height: 75vh;
   border-radius: 1rem; }
+  #root .comment__list--border {
+    border: 0.1rem solid black; }
 
 #root .loader {
   position: fixed;

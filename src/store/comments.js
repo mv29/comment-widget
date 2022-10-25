@@ -108,7 +108,7 @@ export const deleteComment = (id) => {
     // delete the comment with `id` from its parent subComments
     const comment = comments[id];
     const parentComment = comments[comment.parentId];
-    const parentNewSubComments = parentComment.subComments.filter(commentId => commentId !== id);
+    const parentNewSubComments = parentComment?.subComments.filter(commentId => commentId !== id);
 
     if (parentComment) {
       newCommentsState = {
@@ -133,11 +133,13 @@ export const deleteComment = (id) => {
     });
 
     // updating the parent on firebase
-    const editPayload = {
-      subComments: parentNewSubComments,
-    };
-
-    await commentsApi.editComment(parentComment.id, editPayload);
+    if (parentComment) {
+      const editPayload = {
+        subComments: parentNewSubComments,
+      };
+  
+      await commentsApi.editComment(parentComment.id, editPayload);
+    }
 
     batch(() => {
       dispatch(toggleModal('loader', false));

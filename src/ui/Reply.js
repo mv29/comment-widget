@@ -35,6 +35,8 @@ const Reply = ({ comment }) => {
   };
 
   const commentTimeStamp = useMemo(() => {
+    if (!comment.createdAt) return '';
+
     const createdAtSec = comment.createdAt.seconds;
     const commentDateTime = new Date(createdAtSec * 1000);
     const currentDateTime = new Date();
