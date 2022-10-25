@@ -49,3 +49,11 @@ $sides: ("t": "top", "r": "right", "b": "bottom", "l": "left");
 .align-start {
     align-items: flex-start;
 }
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}

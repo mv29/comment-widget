@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ADD_SUB_COMMENT, DELETE_COMMENT, EDIT_COMMENT } from '../store/comments';
+import {
+  ADD_SUB_COMMENT,
+  DELETE_COMMENT,
+  EDIT_COMMENT,
+} from '../store/comments';
 import { Comment, Button } from '../components/index';
 
 const Reply = ({ comment }) => {
@@ -9,8 +13,8 @@ const Reply = ({ comment }) => {
   const [showComment, setShowComment] = useState(0);
 
   const handleClick = (value) => {
-    setShowComment((prev) => prev === value ? 0 : value);
-  }
+    setShowComment((prev) => (prev === value ? 0 : value));
+  };
 
   const handleReply = (reply) => {
     dispatch({
@@ -34,18 +38,36 @@ const Reply = ({ comment }) => {
 
   const handleEdit = (reply) => {
     dispatch({
-        type: EDIT_COMMENT,
-        payload: { value: reply, id: comment.id },
-      });
-  }
+      type: EDIT_COMMENT,
+      payload: { value: reply, id: comment.id },
+    });
+  };
+
+  const commentTimeStamp = useMemo(() => {
+    const commentDateTime = comment.updatedAt || comment.createdAt;
+    const currentDateTime = new Date();
+    const hoursDifference = currentDateTime.getHours() - commentDateTime.getHours();
+    const minutesDifference = currentDateTime.getMinutes() - commentDateTime.getMinutes();
+    if (hoursDifference > 24) {
+      return commentDateTime.toDateString();
+    } else {
+      if (hoursDifference === 0) {
+        return `${minutesDifference || 1} min ago`;
+      }
+      return `${hoursDifference} hr`;
+    }
+  }, [comment.updatedAt, comment.createdAt]);
 
   return (
     <div
-      className='column m-b-10'
+      className='column m-b-15'
       style={{ marginLeft: `${comment.level * 1}rem` }}
     >
-      <div className='row align-c'>
-        <span className='m-r-10 reply'>{comment.text}</span>
+      <div className='row align-c relative'>
+        <div className='m-r-10 reply'>
+          <div className='row reply__timestamp absolute'>{commentTimeStamp}</div>
+          <div className='m-r-10 reply'>{comment.text}</div>
+        </div>
         <Button
           text='delete'
           onClick={handleDelete}
@@ -63,11 +85,13 @@ const Reply = ({ comment }) => {
         />
       </div>
       {showComment !== 0 && (
-        <div className='row m-t-5'>
+        <div className='row m-t-10'>
           <Comment
             InputClassName='input--small'
             btnClassName='btn--normal btn--small'
-            placeholder={showComment === 1 ? 'reply to comment' : 'edit comment'}
+            placeholder={
+              showComment === 1 ? 'reply to comment' : 'edit comment'
+            }
             btnName={showComment === 1 ? 'reply' : 'edit'}
             handleSubmit={showComment === 1 ? handleReply : handleEdit}
           />

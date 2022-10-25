@@ -22,7 +22,16 @@
 }
 
 .reply {
+    font-size: initial;
     padding: 0.4rem 0.8rem;
     border-radius: 0.4rem;
     background-color: whitesmoke;
+
+    &__timestamp {
+        font-size: 0.7rem;
+        right: 92%;
+        top: 2.8rem;
+        z-index: 1;
+        width: max-content;
+    }
 }

@@ -119,6 +119,12 @@
 #root .align-start {
   align-items: flex-start; }
 
+#root .relative {
+  position: relative; }
+
+#root .absolute {
+  position: absolute; }
+
 #root .btn {
   padding: 0.6rem 1.2rem;
   border-radius: 0.3rem;
@@ -141,8 +147,8 @@
     border-color: #278ff7;
     background-color: transparent; }
   #root .btn--edit {
-    color: #00ffcc;
-    border-color: #00ffcc;
+    color: #0d816a;
+    border-color: #0d816a;
     background-color: transparent; }
   #root .btn--normal {
     color: black;
@@ -164,6 +170,13 @@
     outline: #278ff7 auto 0.1rem; }
 
 #root .reply {
+  font-size: initial;
   padding: 0.4rem 0.8rem;
   border-radius: 0.4rem;
   background-color: whitesmoke; }
+  #root .reply__timestamp {
+    font-size: 0.7rem;
+    right: 92%;
+    top: 2.8rem;
+    z-index: 1;
+    width: max-content; }

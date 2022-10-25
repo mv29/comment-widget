@@ -15,7 +15,7 @@ Comment Schemma
     userId -> int
     parentId -> int
     subComments -> array of ids
-    "createAt" datetime
+    "createdAt" datetime
     "updateAt" datetime
 }
 
@@ -65,7 +65,7 @@ const commentsReducer = (state = initialState, { type, payload }) => {
           text: text,
           parentId: parentId,
           subComments: [],
-          createAt: new Date(),
+          createdAt: new Date(),
           userId: null,
           updatedAt: null,
         },
@@ -99,7 +99,7 @@ const commentsReducer = (state = initialState, { type, payload }) => {
           text: text,
           parentId: parentId,
           subComments: [],
-          createAt: new Date(),
+          createdAt: new Date(),
           userId: null,
           updatedAt: null,
         },
