@@ -1,11 +1,8 @@
 import { useState, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, batch } from 'react-redux';
 
-import {
-  ADD_SUB_COMMENT,
-  DELETE_COMMENT,
-  EDIT_COMMENT,
-} from '../store/comments';
+import { addSubComment, deleteComment, editComment } from '../store/comments';
+import { toggleModal } from '../store/modal';
 import { Comment, Button } from '../components/index';
 
 const Reply = ({ comment }) => {
@@ -17,30 +14,24 @@ const Reply = ({ comment }) => {
   };
 
   const handleReply = (reply) => {
-    dispatch({
-      type: ADD_SUB_COMMENT,
-      payload: { text: reply, parentId: comment.id },
-    });
+    dispatch(addSubComment({ text: reply, parentId: comment.id }));
   };
 
   const handleDelete = () => {
     const result = window.confirm(
-      'Deleting a Comment will also delete all sub Comments. Do you want to delete?'
+      'Deleting a Comment will also delete all its sub Comments. Do you want to delete?'
     );
 
     if (result) {
-      dispatch({
-        type: DELETE_COMMENT,
-        payload: comment.id,
+      batch(() => {
+        dispatch(toggleModal('loader', true));
+        dispatch(deleteComment(comment.id));
       });
     }
   };
 
   const handleEdit = (reply) => {
-    dispatch({
-      type: EDIT_COMMENT,
-      payload: { value: reply, id: comment.id },
-    });
+    dispatch(editComment({ value: reply, id: comment.id }))
   };
 
   const commentTimeStamp = useMemo(() => {

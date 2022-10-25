@@ -24,7 +24,7 @@ export const generateUUID = () => {
 
 
 export const getFormatedCommentsList = (comments, comment, level) => {
-  if (!comments || !comment) return;
+  if (!comments || !comment) return [];
 
   let formattedComment = [];
   const subComments = comment.subComments;

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 
 import commentReducer from './comments';
 import usersReducer from './user';
+import modal from './modal';
 
 const middlewares = [thunk];
 
@@ -19,6 +20,7 @@ const composedEnhancers = composeWithDevTools(...enhancers)
 const reducers = combineReducers({
     comments: commentReducer,
     user :usersReducer,
+    modal,
 });
 
 const store = createStore(reducers, composedEnhancers);

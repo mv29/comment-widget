@@ -1,16 +1,16 @@
-import { Provider } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import './App.css';
-import store from './store';
 import CommentContainer from './ui/CommentContainer';
 
 function App() {
+  const showLoader = useSelector((state) => state.modal.loader);
+
   return (
     <div className='app'>
       <h1>Comment Widget</h1>
-      <Provider store={store}>
-        <CommentContainer />
-      </Provider>
+      <CommentContainer />
+      {showLoader && <div className='loader'>loading</div>}
     </div>
   );
 }

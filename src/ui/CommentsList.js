@@ -15,7 +15,6 @@ const CommentsList = ({ parentId }) => {
 
   if (!formattedCommentList) return null;
 
-  console.log('mv formattedCommentList', formattedCommentList);
   return (
     <div className='column justify-start m-t-10 p-l-5 p-r-5'>
       {formattedCommentList.map((comment) => (
