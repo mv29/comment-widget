@@ -1,10 +1,26 @@
 import Database from '../database/firebase';
-import { collection, addDoc, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { 
+  getDocs,
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  deleteDoc,
+  Timestamp,
+  query,
+  orderBy,
+} from 'firebase/firestore';
 
 const COMMENT_COLLECTION = 'comments';
 
-const addComment = async ( payload) => {
-  return await addDoc(collection(Database, COMMENT_COLLECTION), { ...payload });
+const fetchComments = async () => {
+  const q = query(collection(Database, COMMENT_COLLECTION), orderBy('createdAt', 'desc'));
+  return await getDocs(q);
+}
+
+const addComment = async (payload) => {
+  console.log('mv payload', payload);
+  return await addDoc(collection(Database, COMMENT_COLLECTION), { ...payload, createdAt: Timestamp.now() });
 };
 
 const editComment = async (commentId, payload) => {
@@ -15,6 +31,6 @@ const editComment = async (commentId, payload) => {
 const deleteComment = async (id) => {
   await deleteDoc(doc(Database, COMMENT_COLLECTION, id)); 
 }
-const commentsApi = { addComment, editComment, deleteComment };
+const commentsApi = { addComment, editComment, deleteComment, fetchComments };
 
 export default commentsApi;

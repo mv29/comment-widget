@@ -15,7 +15,6 @@ export function toggleModal(id, value) {
 const reducer =  (state = {}, { type, payload }) => {
   switch (type) {
     case TOGGLE_MODAL:
-      console.log('mv payload', payload);
       return {
         ...state,
         [payload.id]: payload.value,

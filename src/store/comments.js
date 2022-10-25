@@ -5,6 +5,12 @@ import { BASE_NAME } from '../utils/constants';
 import { toggleModal } from './modal';
 
 // Actions
+
+
+const FETCH_COMMENTS_INIT = `${BASE_NAME}/FETCH_COMMENTS_INIT`;
+const FETCH_COMMENTS_DONE = `${BASE_NAME}/FETCH_COMMENTS_DONE`;
+const FETCH_COMMENTS_ERROR = `${BASE_NAME}/FETCH_COMMENTS_ERROR`;
+
 export const ADD_COMMENT = `${BASE_NAME}/ADD_COMMENT`;
 export const EDIT_COMMENT = `${BASE_NAME}/EDIT_COMMENT`;
 export const DELETE_COMMENT = `${BASE_NAME}/DELETE_COMMENT`;
@@ -16,9 +22,7 @@ export const addcomment = ({ text, parentId }) => {
       text: text,
       parentId: parentId,
       subComments: [],
-      createdAt: new Date(),
       userId: null,
-      updatedAt: null,
     };
 
     try {
@@ -28,7 +32,7 @@ export const addcomment = ({ text, parentId }) => {
         payload: { id: response.id, ...payload },
       });
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   };
 };
@@ -44,7 +48,7 @@ export const editComment = ({ id, value }) => {
         payload: { id, value },
       });
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   };
 };
@@ -55,12 +59,10 @@ export const addSubComment = ({ text, parentId }) => {
       text: text,
       parentId: parentId,
       subComments: [],
-      createdAt: new Date(),
       userId: null,
-      updatedAt: null,
     };
 
-    const comments = getState().comments;
+    const comments = getState().comments.data;
     const parentComment = comments[parentId];
     try {
       const response = await commentsApi.addComment(payload);
@@ -75,7 +77,7 @@ export const addSubComment = ({ text, parentId }) => {
         payload: { text, parentId, id: response.id },
       });
     } catch (err) {
-      alert(err);
+      console.error(err);
     }
   };
 };
@@ -99,7 +101,7 @@ const deleteCommentAndSubComments = (comments, commentId, deletedComments) => {
 
 export const deleteComment = (id) => {
   return async (dispatch, getState) => {
-    const comments = getState().comments;
+    const comments = getState().comments.data;
     const deleteCommentsId = [];
     let newCommentsState = { ...comments };
 
@@ -126,7 +128,7 @@ export const deleteComment = (id) => {
       try {
         await commentsApi.deleteComment(commentId);
       } catch (err) {
-        alert(err);
+        console.error(err);
       }
     });
 
@@ -146,6 +148,38 @@ export const deleteComment = (id) => {
     });
   };
 };
+
+export const fetchComments = () => {
+  return async (dispatch, getState) => {
+    const { isLoading } = getState().comments;
+
+    // don't allow api call when one already in progress
+    if (isLoading) return;
+
+    batch(() => {
+      // dispatch(toggleModal('loader', true));
+      dispatch({ type: FETCH_COMMENTS_INIT });
+    });
+    try {
+      const response = await commentsApi.fetchComments();
+      const comments = {};
+      response?.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        comments[doc.id] = {...doc.data(), id: doc.id};
+      });
+      console.log('mv comments', comments);
+      dispatch({
+        type: FETCH_COMMENTS_DONE,
+        payload: comments || {},
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({ type: FETCH_COMMENTS_ERROR, payload: error });
+    } finally {
+      // dispatch(toggleModal('loader', false));
+    }
+  }
+}
 
 /*
 Comment Schemma
@@ -171,52 +205,88 @@ Comment Schemma
   } 
   Object of comments
 */
-const initialState = [];
+const initialState = {
+  isLoading: false,
+  data: [],
+  error: null,
+};
 
 // Reducer
 const commentsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
+    case FETCH_COMMENTS_INIT: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case FETCH_COMMENTS_DONE: {
+      return {
+        ...state,
+        isLoading: false,
+        data: payload,
+      };
+    }
+    case FETCH_COMMENTS_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        error: payload,
+      };
+    }
     case ADD_COMMENT: {
       return {
         ...state,
-        [payload.id]: { ...payload },
+        data: {
+          ...state.data,
+          [payload.id]: { ...payload }, 
+        }
       };
     }
     case EDIT_COMMENT: {
       const { id: commentId, value } = payload;
-      const comment = state[commentId];
+      const comment = state.data[commentId];
 
       return {
         ...state,
-        [commentId]: {
-          ...comment,
-          text: value,
-        },
+        data: {
+          ...state.data,
+          [commentId]: {
+            ...comment,
+            text: value,
+          }
+        }
       };
     }
     case ADD_SUB_COMMENT: {
+      console.log('mv payload', payload);
       const { text, parentId, id } = payload;
-      const parentComment = state[parentId];
+      const parentComment = state.data[parentId];
 
       return {
         ...state,
-        [parentId]: {
-          ...parentComment,
-          subComments: [...parentComment.subComments, id],
-        },
-        [id]: {
-          id: id,
-          text: text,
-          parentId: parentId,
-          subComments: [],
-          createdAt: new Date(),
-          userId: null,
-          updatedAt: null,
-        },
+        data: {
+          ...state.data,
+          [parentId]: {
+            ...parentComment,
+            subComments: [...parentComment.subComments, id],
+          },
+          [id]: {
+            id: id,
+            text: text,
+            parentId: parentId,
+            subComments: [],
+            createdAt: new Date(),
+            userId: null,
+          },
+        }
       };
     }
     case DELETE_COMMENT: {
-      return {...payload};
+      return {
+        ...state,
+        data: {...payload},
+      };
     }
     default:
       return state;
