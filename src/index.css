@@ -168,7 +168,7 @@
 
 #root .reply {
   font-size: initial;
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.4rem;
   background-color: whitesmoke; }
   #root .reply__timestamp {
@@ -183,7 +183,13 @@
     border-radius: 0.5rem; }
 
 #root .comment__container {
-  padding: 0 24rem; }
+  padding: 0 24vw; }
+  @media screen and (min-width: 768px) and (max-width: 1440px) {
+    #root .comment__container {
+      padding: 0 12vw; } }
+  @media screen and (max-width: 768px) and (min-width: 300px) {
+    #root .comment__container {
+      padding: 0; } }
 
 #root .comment__list {
   overflow: auto;

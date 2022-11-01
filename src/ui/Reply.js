@@ -37,19 +37,19 @@ const Reply = ({ comment }) => {
   const commentTimeStamp = useMemo(() => {
     if (!comment.createdAt) return '';
 
+    const currentDateTime = new Date();
     const createdAtSec = comment.createdAt.seconds;
     const commentDateTime = new Date(createdAtSec * 1000);
-    const currentDateTime = new Date();
-    const hoursDifference = currentDateTime.getHours() - commentDateTime.getHours();
-    const minutesDifference = currentDateTime.getMinutes() - commentDateTime.getMinutes();
-    if (hoursDifference > 24) {
-      return commentDateTime.toDateString();
-    } else {
-      if (hoursDifference === 0 || isNaN(hoursDifference)) {
-        return `${minutesDifference || 1} min ago`;
-      }
-      return `${hoursDifference} hr ago`;
-    }
+    
+    const secondsDiif = Math.floor((currentDateTime - (commentDateTime))/1000);
+    const minutesDiff = Math.floor(secondsDiif/60);
+    const hoursDiff = Math.floor(minutesDiff/60);
+
+    if (hoursDiff > 24) return commentDateTime.toDateString();
+
+    if (hoursDiff === 0 || isNaN(hoursDiff)) return `${minutesDiff || 1} min ago`;
+
+    return `${hoursDiff} hr ago`;
 
   }, [ comment]);
 
