@@ -52,3 +52,19 @@ export const getFormatedComments = (commentsObject, parentId) => {
 
   return commentsList;
 }
+
+export const deleteCommentAndSubComments = (comments, commentId, deletedComments) => {
+  if (!comments || !commentId) return;
+
+  const comment = comments[commentId];
+  const subComments = comment.subComments;
+
+  deletedComments.push(commentId);
+  // delete subComments recursively
+  subComments.forEach((subCommentId) => {
+    deleteCommentAndSubComments(comments, subCommentId, deletedComments);
+  });
+
+  // delete comment after all subComments of it are deleted
+  delete comments[commentId];
+};

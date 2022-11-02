@@ -2,6 +2,7 @@ import { batch } from 'react-redux';
 
 import commentsApi from '../apis/commentsApi';
 import { BASE_NAME } from '../utils/constants';
+import { deleteCommentAndSubComments } from '../utils/miscs';
 import { toggleModal } from './modal';
 
 // Actions
@@ -16,6 +17,7 @@ export const EDIT_COMMENT = `${BASE_NAME}/EDIT_COMMENT`;
 export const DELETE_COMMENT = `${BASE_NAME}/DELETE_COMMENT`;
 export const ADD_SUB_COMMENT = `${BASE_NAME}/ADD_SUB_COMMENT`;
 
+// Action for adding a comment
 export const addcomment = ({ text, parentId }) => {
   return async (dispatch) => {
     const payload = {
@@ -37,6 +39,7 @@ export const addcomment = ({ text, parentId }) => {
   };
 };
 
+// Action for editing a comment
 export const editComment = ({ id, value }) => {
   return async (dispatch) => {
     const payload = { text: value };
@@ -53,6 +56,7 @@ export const editComment = ({ id, value }) => {
   };
 };
 
+// Action for adding a subComment
 export const addSubComment = ({ text, parentId }) => {
   return async (dispatch, getState) => {
     const payload = {
@@ -82,23 +86,7 @@ export const addSubComment = ({ text, parentId }) => {
   };
 };
 
-// deletes the comment and all its sub comments and returns deleted comments id's
-const deleteCommentAndSubComments = (comments, commentId, deletedComments) => {
-  if (!comments || !commentId) return;
-
-  const comment = comments[commentId];
-  const subComments = comment.subComments;
-
-  deletedComments.push(commentId);
-  // delete subComments recursively
-  subComments.forEach((subCommentId) => {
-    deleteCommentAndSubComments(comments, subCommentId, deletedComments);
-  });
-
-  // delete comment after all subComments of it are deleted
-  delete comments[commentId];
-};
-
+// Action for deleting a commebt and its SubComemnts
 export const deleteComment = (id) => {
   return async (dispatch, getState) => {
     const comments = getState().comments.data;
@@ -151,6 +139,7 @@ export const deleteComment = (id) => {
   };
 };
 
+// Action for fetching all comments from databsae
 export const fetchComments = () => {
   return async (dispatch, getState) => {
     const { isLoading } = getState().comments;
@@ -159,14 +148,12 @@ export const fetchComments = () => {
     if (isLoading) return;
 
     batch(() => {
-      // dispatch(toggleModal('loader', true));
       dispatch({ type: FETCH_COMMENTS_INIT });
     });
     try {
       const response = await commentsApi.fetchComments();
       const comments = {};
       response?.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
         comments[doc.id] = {...doc.data(), id: doc.id};
       });
 
@@ -178,7 +165,6 @@ export const fetchComments = () => {
       console.error(error);
       dispatch({ type: FETCH_COMMENTS_ERROR, payload: error });
     } finally {
-      // dispatch(toggleModal('loader', false));
     }
   }
 }
@@ -209,7 +195,7 @@ Comment Schemma
 */
 const initialState = {
   isLoading: false,
-  data: [],
+  data: {},
   error: null,
 };
 
