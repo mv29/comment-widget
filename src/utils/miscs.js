@@ -1,7 +1,3 @@
-/**
- * A standard UUID generator function.
- * Picked from https://stackoverflow.com/a/8809472
- */
 export const generateUUID = () => {
   let d = Date.now();
   // Time in microseconds since page-load or 0 if unsupported

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 
-import Input from './Input';
-import Button from './Button';
+import { Input, Button } from '../../components';
 
 const Comment = ({ 
   handleSubmit,

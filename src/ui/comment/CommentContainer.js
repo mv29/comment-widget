@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
-import { addcomment } from '../store/comments';
-import { Comment } from '../components';
+import { addcomment } from '../../store/comments';
+import Comment from './Comment';
 import CommentsList from './CommentsList';
 
 /*

@@ -2,9 +2,9 @@ import { useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getCommentsList } from '../selectors/comments';
-import { fetchComments } from '../store/comments';
-import { getFormatedComments } from '../utils/miscs';
+import { getCommentsList } from '../../selectors/comments';
+import { fetchComments } from '../../store/comments';
+import { getFormatedComments } from '../../utils/miscs';
 import Reply from './Reply';
 
 const CommentsList = ({ parentId }) => {

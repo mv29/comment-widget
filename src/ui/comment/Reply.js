@@ -1,9 +1,10 @@
 import { useState, useMemo } from 'react';
 import { useDispatch, batch } from 'react-redux';
 
-import { addSubComment, deleteComment, editComment } from '../store/comments';
-import { toggleModal } from '../store/modal';
-import { Comment, Button } from '../components/index';
+import { addSubComment, deleteComment, editComment } from '../../store/comments';
+import { toggleModal } from '../../store/modal';
+import { Button } from '../../components';
+import Comment from './Comment';
 
 const Reply = ({ comment }) => {
   const dispatch = useDispatch();

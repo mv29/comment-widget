@@ -9,8 +9,7 @@ $sides: ("t": "top", "r": "right", "b": "bottom", "l": "left");
 @each $spacing in $spacings {
     $spacing-in-px: $spacing * 0.1rem;
 
-    @each $size-prefix,
-    $size in $sides {
+    @each $size-prefix, $size in $sides {
         .#{$margin-prefix}-#{$size-prefix}-#{$spacing} {
             margin-#{$size}: $spacing-in-px;
         }

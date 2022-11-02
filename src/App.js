@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import './App.css';
-import CommentContainer from './ui/CommentContainer';
+import { CommentContainer } from './ui/comment';
 
 function App() {
   const showLoader = useSelector((state) => state.modal.loader);
