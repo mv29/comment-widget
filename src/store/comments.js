@@ -178,7 +178,6 @@ Comment Schemma
     parentId -> int
     subComments -> array of ids
     "createdAt" datetime
-    "updateAt" datetime
 }
 
 *** Parent is the entity on which the user commented. It could be anything for ex - Post, Reel, Comment,  
